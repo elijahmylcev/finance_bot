@@ -5,12 +5,13 @@ from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 # Create Bot
-bot = Bot(token=os.getenv('BOT_TOKEN'))
+token = os.getenv('BOT_TOKEN')
+bot = Bot(token)
 
 # Create Dispatcher
 dp = Dispatcher(bot)
-
-@dp.message_handlers() # Аргумент не передан - все сообщения
+# Аргумент не передан - все сообщения
+@dp.message_handler()
 async def get_message(message: types.Message):
   chat_id = message.chat.id
   # chat_id = types.Message.chat.id || variant

@@ -3,7 +3,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 ikb_menu = InlineKeyboardMarkup(row_width=2,
                                 inline_keyboard=[
                                   [
-                                    InlineKeyboardButton(text='Конвертер валюты', callback_data='T'),
+                                    InlineKeyboardButton(text='Конвертер валюты', callback_data='convert'),
                                     InlineKeyboardButton(text='Ссылка на дашборд', url='https://google.com')
                                   ],
                                   [

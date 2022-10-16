@@ -1,20 +1,13 @@
-import os
-from aiogram import Bot, Dispatcher, types
-from aiogram.utils import executor
+async def on_startup(dp):
 
-load_dotenv(find_dotenv())
-# Create Bot
-token = os.getenv('BOT_TOKEN')
-bot = Bot(token)
+  from utils.notify_admins import on_startup_notify
+  await on_startup_notify(dp)
 
-# Create Dispatcher
-dp = Dispatcher(bot)
-# Аргумент не передан - все сообщения
-@dp.message_handler()
-async def get_message(message: types.Message):
-  chat_id = message.chat.id
-  # chat_id = types.Message.chat.id || variant
-  text = 'Hello, bro'
-  await bot.send_message(chat_id, text)
+  from utils.set_bot_commands import set_default_commands
+  await set_default_commands(dp)
+  print('Bot запущен')
 
-executor.start_polling(dp)
+if __name__ == '__main__':
+  from aiogram import executor
+  from handlers import dp
+  executor.start_polling(dp, on_startup=on_startup)

@@ -4,6 +4,7 @@ from .hello import dp
 from .menu import dp
 from .buttons import dp
 from .inline_menu import dp
+from .register import dp
 
 from .error import dp
 

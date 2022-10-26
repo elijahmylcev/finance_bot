@@ -9,6 +9,6 @@ from loader import dp
 async def show_inline_menu(message: types.Message):
   await message.answer('Инлайн кнопки ниже', reply_markup=ikb_menu)
 
-@dp.callback_query_handler(text='convert')
+@dp.callback_query_handler(text='Конвертер валюты')
 async def send_message(call: CallbackQuery):
-  await call.answer('text', show_alert=True)
+ await call.answer('text', show_alert=True)

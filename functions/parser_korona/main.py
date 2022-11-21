@@ -8,7 +8,7 @@ from out_float import out_float
 import random
 import time
 
-def getKCurrency():
+def get_k_currency():
   useragent = UserAgent()
   receiving = 10000
 
@@ -56,7 +56,4 @@ def getKCurrency():
   finally:
     driver.close()
     driver.quit()
-    
- 
-
-print(getKCurrency())
+  

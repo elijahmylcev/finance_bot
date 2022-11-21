@@ -7,7 +7,6 @@ from loader import dp
 
 from states import converter
 
-
 @dp.message_handler(Command('converter'))
 async def register_(message: types.Message):
   from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
@@ -33,7 +32,8 @@ async def state1(message: types.Message, state: FSMContext):
   answer = message.text  # Сохраняем ответ пользователя
 
   await state.update_data(currency_current=answer)
-  await message.answer(f'{answer}, сколько конвертируем?')
+  await message.answer(f'{answer}, сколько конвертируем?',
+                       reply_markup=kb_menu)
   await converter.price_input.set()
 
 
@@ -45,7 +45,6 @@ async def state2(message: types.Message, state: FSMContext):
   data = await state.get_data()
   currency = data.get('currency_current')
   price = data.get('price_input')
-  await message.answer(f'Конвертация успешна совершена \nВалюта: {currency}. \nСумма: {price}',
-                       reply_markup=kb_menu)
+  await message.answer(f'Конвертация успешна совершена \nВалюта: {currency}. \nСумма: {price}')
 
   await state.finish()

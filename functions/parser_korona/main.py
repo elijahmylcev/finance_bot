@@ -1,10 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
-from config import executable_path, url
+from .config import executable_path, url
 from fake_useragent import UserAgent
-from create_file_layout import create_html
-from out_float import out_float
+from .create_file_layout import create_html
+from .out_float import out_float
 import random
 import time
 
@@ -56,4 +56,4 @@ def get_k_currency():
   finally:
     driver.close()
     driver.quit()
-  
+    

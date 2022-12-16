@@ -2,8 +2,8 @@ from datetime import datetime
 from time import sleep
 import pandas as pd
 from bs4 import BeautifulSoup
-from config import page, driver_path
-from get_data import get_data
+from .config import page, driver_path
+from .get_data import get_data
 
 
 def get_cash_currency():
@@ -41,10 +41,10 @@ def get_cash_currency():
 
   print(mean)
 
-  with open('max_rate.txt', 'w', encoding='utf-8') as file:
-    file.write(
-      f'Отчет составлен: {datetime.now()} \nСредний курс: {round(mean, 2)}\n\n{df_max.to_string()}'
-    )
+  # with open('max_rate.txt', 'w', encoding='utf-8') as file:
+  #   file.write(
+  #     f'Отчет составлен: {datetime.now()} \nСредний курс: {round(mean, 2)}\n\n{df_max.to_string()}'
+  #   )
   
   return mean
 

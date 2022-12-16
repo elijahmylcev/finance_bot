@@ -6,7 +6,7 @@ from .buttons import dp
 from .inline_menu import dp
 from .register import dp
 from .converter import dp
-# from .currency import
+from .currency import dp
 from .error import dp
 
 __all__ = ['dp']

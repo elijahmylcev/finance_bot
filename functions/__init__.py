@@ -1,1 +1,1 @@
-from .parser_korona import main
+from .parser_korona import get_k_currency

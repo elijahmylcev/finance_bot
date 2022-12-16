@@ -1,4 +1,4 @@
-from check_number import is_number
+from .check_number import is_number
 
 # to_pay_in_html = '1,465.00 RUB'
 def out_float(to_pay_in_html):

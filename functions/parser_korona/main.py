@@ -2,18 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from .config import executable_path, url
-from fake_useragent import UserAgent
 from .create_file_layout import create_html
 from .out_float import out_float
-import random
 import time
 
 def get_k_currency():
-  useragent = UserAgent()
   receiving = 10000
 
   options = webdriver.ChromeOptions()
-  options.add_argument(f"user-agent={useragent.random}")
 
   driver = webdriver.Chrome(
     executable_path=executable_path,
@@ -28,7 +24,7 @@ def get_k_currency():
     select_country = select_country.click()
     KAZ = driver.find_element(By.ID, 'changeable-field-select-option-KAZ')
     KAZ.click()
-    time.sleep(4)
+    time.sleep(3)
     sum = driver.find_element(By.ID, 'changeable-field-input-amount')
     sum.send_keys(receiving)
 
@@ -39,7 +35,7 @@ def get_k_currency():
     time.sleep(2)
     #CheckBox_checkbox-input___BTr3
     driver.find_element(By.CLASS_NAME, 'CheckBox_checkbox-input___BTr3').click()
-    time.sleep(5)
+    time.sleep(2)
 
     to_pay_in_html = driver.find_element(By.ID, 'static-text-calculatorAmount').text
 
@@ -49,7 +45,12 @@ def get_k_currency():
     currency_KZT = receiving / to_pay
     currency_KZT = round(currency_KZT, 2)
     print(f'Курс ₸: {currency_KZT}')
-    return currency_KZT
+    if not currency_KZT or currency_KZT == None:
+      return 'Что-то пошло не так:('
+    else:
+      return currency_KZT
+    
+    
 
   except Exception as e:
     print(f'[!ERROR]: {e}')

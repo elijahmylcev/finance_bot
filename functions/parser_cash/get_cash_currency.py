@@ -38,14 +38,8 @@ def get_cash_currency():
 
   df_max = df[df['rate'] == max_rate]
   mean = df['rate'].mean()
-
-  print(mean)
-
-  # with open('max_rate.txt', 'w', encoding='utf-8') as file:
-  #   file.write(
-  #     f'Отчет составлен: {datetime.now()} \nСредний курс: {round(mean, 2)}\n\n{df_max.to_string()}'
-  #   )
-  
-  return mean
-
-print(get_cash_currency())
+  if not mean or mean == None:
+    return 'Что-то пошло не так:('
+  else:
+    return mean
+    

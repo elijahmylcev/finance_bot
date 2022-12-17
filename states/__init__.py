@@ -1,2 +1,2 @@
 from .register_state import register
-from .converter_state import converter
+from .currency_state import currency_tenge

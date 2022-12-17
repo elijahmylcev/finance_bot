@@ -1,9 +1,9 @@
-from datetime import datetime
 from time import sleep
 import pandas as pd
 from bs4 import BeautifulSoup
 from .config import page, driver_path
 from .get_data import get_data
+# from states import currency_tenge
 
 
 def get_cash_currency():
@@ -38,8 +38,13 @@ def get_cash_currency():
 
   df_max = df[df['rate'] == max_rate]
   mean = df['rate'].mean()
-  if not mean or mean == None:
-    return 'Что-то пошло не так:('
-  else:
-    return mean
+  # state.update_data(currency_cash=mean)
+  
+  # await state.finish()
+  
+  return round(mean, 2)
+  # if not mean or mean == None:
+  #   return 'Что-то пошло не так:('
+  # else:
+  #   return mean
     

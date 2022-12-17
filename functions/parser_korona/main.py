@@ -5,6 +5,8 @@ from .config import executable_path, url
 from .create_file_layout import create_html
 from .out_float import out_float
 import time
+from states import currency_tenge
+
 
 def get_k_currency():
   receiving = 10000
@@ -45,12 +47,12 @@ def get_k_currency():
     currency_KZT = receiving / to_pay
     currency_KZT = round(currency_KZT, 2)
     print(f'Курс ₸: {currency_KZT}')
-    if not currency_KZT or currency_KZT == None:
-      return 'Что-то пошло не так:('
-    else:
-      return currency_KZT
-    
-    
+    return currency_KZT
+    # currency_tenge.currency_korona.set(currency_KZT)
+    # if not currency_KZT or currency_KZT == None:
+    #   return 'Что-то пошло не так:('
+    # else:
+    #   return currency_KZT
 
   except Exception as e:
     print(f'[!ERROR]: {e}')

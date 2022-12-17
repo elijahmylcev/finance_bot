@@ -4,7 +4,7 @@ kb_menu = ReplyKeyboardMarkup(
   keyboard=[
     [
       KeyboardButton(text='Инлайн меню'),
-      KeyboardButton(text='Курс тенге'),
+      KeyboardButton(text='Курс ₸'),
       KeyboardButton(text='Показать дашборд'),
     ],
     [

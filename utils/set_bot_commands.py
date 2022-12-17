@@ -5,5 +5,6 @@ async def set_default_commands(dp):
     types.BotCommand('register', 'Регистрация'),
     types.BotCommand('start', 'Запустить бота'),
     types.BotCommand('help', 'Помощь'),
-    types.BotCommand('converter', 'Конвертер валюты')
+    types.BotCommand('converter', 'Конвертер валюты'),
+    types.BotCommand('currency', 'Курс ₸')
   ])

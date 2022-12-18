@@ -27,7 +27,7 @@ def get_k_currency():
     select_country = select_country.click()
     KAZ = driver.find_element(By.ID, 'changeable-field-select-option-KAZ')
     KAZ.click()
-    time.sleep(3)
+    time.sleep(2)
     sum = driver.find_element(By.ID, 'changeable-field-input-amount')
     sum.send_keys(receiving)
 
@@ -49,11 +49,6 @@ def get_k_currency():
     currency_KZT = round(currency_KZT, 2)
     print(f'Курс ₸: {currency_KZT}')
     return currency_KZT
-    # currency_tenge.currency_korona.set(currency_KZT)
-    # if not currency_KZT or currency_KZT == None:
-    #   return 'Что-то пошло не так:('
-    # else:
-    #   return currency_KZT
 
   except Exception as e:
     print(f'[!ERROR]: {e}')

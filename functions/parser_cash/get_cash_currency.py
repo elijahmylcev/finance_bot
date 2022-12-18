@@ -38,13 +38,5 @@ def get_cash_currency():
 
   df_max = df[df['rate'] == max_rate]
   mean = df['rate'].mean()
-  # state.update_data(currency_cash=mean)
-  
-  # await state.finish()
   
   return round(mean, 2)
-  # if not mean or mean == None:
-  #   return 'Что-то пошло не так:('
-  # else:
-  #   return mean
-    

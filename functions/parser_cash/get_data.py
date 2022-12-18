@@ -11,7 +11,7 @@ def get_data(page_url, d_path):
     )
   try:
     driver.get(url=page_url)
-    sleep(3)
+    sleep(2)
 
     with open('index.html', 'w', encoding="utf-8") as file:
       file.write(driver.page_source)

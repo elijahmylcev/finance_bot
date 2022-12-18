@@ -4,6 +4,7 @@ from selenium import webdriver
 
 def get_data(page_url, d_path):
   options = webdriver.ChromeOptions()
+  options.add_argument('headless')
   driver = webdriver.Chrome(
       service=Service(d_path),
       options=options

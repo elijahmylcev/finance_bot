@@ -12,7 +12,8 @@ def get_k_currency():
   receiving = 10000
 
   options = webdriver.ChromeOptions()
-
+  # Фоновый режим
+  options.add_argument('headless')
   driver = webdriver.Chrome(
     executable_path=executable_path,
     options=options

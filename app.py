@@ -2,6 +2,7 @@ import asyncio
 from datetime import datetime
 from aiogram import executor
 from handlers import dp
+import threading
 from functions.parser_korona import get_k_currency
 from functions.parser_cash import get_cash_currency
 import sqlite3
@@ -65,5 +66,7 @@ async def on_startup(dp) -> None:
 if __name__ == '__main__':
   loop = asyncio.get_event_loop()
   loop.create_task(infinity())
+  # thread = threading.Thread(target=infinity)
+  # thread.start()
   executor.start_polling(dp, on_startup=on_startup)
   

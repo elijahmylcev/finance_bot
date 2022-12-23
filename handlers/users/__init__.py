@@ -6,6 +6,7 @@ from .buttons import dp
 from .inline_menu import dp
 from .register import dp
 from .income import dp
+from .costs import dp
 from .currency import dp
 from .error import dp
 

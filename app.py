@@ -1,4 +1,5 @@
 import asyncio
+from datetime import datetime
 from aiogram import executor
 from handlers import dp
 from functions.parser_korona import get_k_currency
@@ -25,15 +26,27 @@ async def infinity() -> None:
     print(gold_pay)
     cash = get_cash_currency()
     print(cash)
-    db = sqlite3.connect('bot_data.db')
+    
+    try:
+      db = sqlite3.connect('bot_data.db')
+      c = db.cursor()
+      print("Подключен к SQLite")
 
-    c = db.cursor()
-    print(c)
-    str_query = f'INSERT INTO currency VALUES ("CURRENT_TIMESTAMP", {cash}, {gold_pay})'
-    c.execute(str_query)
-    db.commit()
-    db.close()
-    print('Hello')
+      sqlite_insert_with_param = """INSERT INTO currency
+                            (date, cash_num, gold_num)
+                            VALUES (?, ?, ?);"""
+
+      data_tuple = (datetime.now(), cash, gold_pay)
+      c.execute(sqlite_insert_with_param, data_tuple)
+      db.commit()
+      print("Success")
+      c.close()
+    except sqlite3.Error as error:
+      print("Ошибка при работе с SQLite", error)
+    finally:
+      if db:
+        db.close()
+        print("Соединение с SQLite закрыто")
     await asyncio.sleep(120)
   
 

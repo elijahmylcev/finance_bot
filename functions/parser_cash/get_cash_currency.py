@@ -1,9 +1,7 @@
-from time import sleep
 import pandas as pd
 from bs4 import BeautifulSoup
 from .config import page, driver_path
 from .get_data import get_data
-# from states import currency_tenge
 
 
 def get_cash_currency():

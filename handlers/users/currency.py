@@ -20,4 +20,4 @@ async def command_currency(message: types.Message) -> None:
     if db:
       db.close()
       print("Соединение с SQLite закрыто")
-  await message.answer(f'Time: {data[0][0]}\nКурс на золотой короне: {data[0][2]}₸ \nКурс в обменниках: {data[0][1]}₸')
+  await message.answer(f'Time: {data[0][0]}\nКурс ₽ на золотой короне: {data[0][2]}₸ \nКурс ₽ в обменниках: {data[0][1]}₸')

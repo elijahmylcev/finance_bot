@@ -11,6 +11,6 @@ ikb_menu = InlineKeyboardMarkup(
       InlineKeyboardButton(text='Записать расходы', callback_data='-')
     ],
     [
-      InlineKeyboardButton(text='Записать доходы', callback_data='+')
+      InlineKeyboardButton(text='Записать доходы', callback_data='Записать доходы')
     ]
   ])

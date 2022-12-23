@@ -4,5 +4,5 @@
 
 -- CREATE TABLE 
 
--- DROP TABLE costs;
--- DROP TABLE income;
+DROP TABLE costs;
+DROP TABLE income;

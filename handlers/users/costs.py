@@ -1,13 +1,14 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command
-
+import sqlite3
+from datetime import datetime
 from keyboards.default import kb_menu
 from loader import dp
 
 from states import costs
 
-@dp.message_handler(Command(['costs', 'Записать расходы']))
+@dp.message_handler(Command('costs'))
 async def category_(message: types.Message):
   from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
@@ -117,6 +118,30 @@ async def state3(message: types.Message, state: FSMContext):
   count = data.get('count')
   currency = data.get('currency')
   executor = data.get('executor')
+  
+  try:
+    db = sqlite3.connect('bot_data.db')
+    c = db.cursor()
+    print("Подключен к SQLite")
+
+    sqlite_insert_with_param = """
+      INSERT INTO costs
+      (date, category, cost, currency, executor)
+      VALUES (?, ?, ?, ?, ?);
+    """
+
+    data_tuple = (datetime.now(), category, count, currency, executor)
+    c.execute(sqlite_insert_with_param, data_tuple)
+    db.commit()
+    print("Success")
+    c.close()
+  except sqlite3.Error as error:
+    print("Ошибка при работе с SQLite", error)
+  finally:
+    if db:
+      db.close()
+      print("Соединение с SQLite закрыто")
+  
   await message.answer(f'Записали \nВалюта: {currency}. \nСумма: {count} \nКатегория: {category} \n Исполнитель {executor}', reply_markup=kb_menu)
 
   await state.finish()
@@ -231,6 +256,28 @@ async def state4(message: types.Message, state: FSMContext):
   count = data.get('count')
   currency = data.get('currency')
   executor = data.get('executor')
+  try:
+    db = sqlite3.connect('bot_data.db')
+    c = db.cursor()
+    print("Подключен к SQLite")
+
+    sqlite_insert_with_param = """
+      INSERT INTO costs
+      (date, category, cost, currency, executor)
+      VALUES (?, ?, ?, ?, ?);
+    """
+
+    data_tuple = (datetime.now(), category, count, currency, executor)
+    c.execute(sqlite_insert_with_param, data_tuple)
+    db.commit()
+    print("Success")
+    c.close()
+  except sqlite3.Error as error:
+    print("Ошибка при работе с SQLite", error)
+  finally:
+    if db:
+      db.close()
+      print("Соединение с SQLite закрыто")
   await message.answer(f'Записали \nВалюта: {currency}. \nСумма: {count} \nКатегория: {category} \nИсполнитель {executor}', reply_markup=kb_menu)
 
   await state.finish()

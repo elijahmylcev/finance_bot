@@ -30,7 +30,9 @@ import sqlite3
 #             date text,
 #             category text,
 #             cost integer,
-#             currency text
+#             currency text,
+#               executor text
+
 #           )
 #           """)
 # c.execute("""
@@ -38,7 +40,9 @@ import sqlite3
 #             date text,
 #             category text,
 #             sum integer,
-#             currency text
+#             currency text,
+#               executor text
+
 #           )
 #           """)
 

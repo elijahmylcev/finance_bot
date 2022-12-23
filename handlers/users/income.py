@@ -1,13 +1,14 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command
-
+import sqlite3
+from datetime import datetime
 from keyboards.default import kb_menu
 from loader import dp
 
 from states import income
 
-@dp.message_handler(Command(['income', 'Записать доходы']))
+@dp.message_handler(Command('income'))
 async def category_(message: types.Message):
   from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
@@ -82,14 +83,62 @@ async def state2(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=income.currency)
 async def state3(message: types.Message, state: FSMContext):
+  from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+  
+  answer = message.text  # Сохраняем ответ пользователя
+  await state.update_data(currency=answer)
+
+  executor_key = ReplyKeyboardMarkup(
+    keyboard=[
+      [
+        KeyboardButton(text=f'Илья'),
+        KeyboardButton(text=f'Света'),
+      ],
+      [
+        KeyboardButton(text=f'Павел'),
+        KeyboardButton(text=f'Тима'),
+      ]
+    ],
+    resize_keyboard=True
+  )
+  
+  await message.answer(f'Валюта: {answer}, Чей доход?',
+                       reply_markup=executor_key)
+  await income.executor.set()
+  
+@dp.message_handler(state=income.executor)
+async def state4(message: types.Message, state: FSMContext):
   answer = message.text  # Сохраняем ответ пользователя
 
-  await state.update_data(currency=answer)
+  await state.update_data(executor=answer)
   data = await state.get_data()
   category = data.get('category')
   count = data.get('count')
   currency = data.get('currency')
-  await message.answer(f'Записали \nВалюта: {currency}. \nСумма: {count} \nКатегория: {category}', reply_markup=kb_menu)
+  executor = data.get('executor')
+  try:
+    db = sqlite3.connect('bot_data.db')
+    c = db.cursor()
+    print("Подключен к SQLite")
+
+    sqlite_insert_with_param = """
+      INSERT INTO income
+      (date, category, sum, currency, executor)
+      VALUES (?, ?, ?, ?, ?);
+    """
+
+    data_tuple = (datetime.now(), category, count, currency, executor)
+    c.execute(sqlite_insert_with_param, data_tuple)
+    db.commit()
+    print("Success")
+    c.close()
+  except sqlite3.Error as error:
+    print("Ошибка при работе с SQLite", error)
+  finally:
+    if db:
+      db.close()
+      print("Соединение с SQLite закрыто")
+  await message.answer(f'Записали \nВалюта: {currency}. \nСумма: {count} \nКатегория: {category} \nПолучатель: {executor}', reply_markup=kb_menu)
 
   await state.finish()
 
@@ -168,13 +217,61 @@ async def state2(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=income.currency)
 async def state3(message: types.Message, state: FSMContext):
+  from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+  
+  answer = message.text  # Сохраняем ответ пользователя
+  await state.update_data(currency=answer)
+
+  executor_key = ReplyKeyboardMarkup(
+    keyboard=[
+      [
+        KeyboardButton(text=f'Илья'),
+        KeyboardButton(text=f'Света'),
+      ],
+      [
+        KeyboardButton(text=f'Павел'),
+        KeyboardButton(text=f'Тима'),
+      ]
+    ],
+    resize_keyboard=True
+  )
+  
+  await message.answer(f'Валюта: {answer}, Чей доход?',
+                       reply_markup=executor_key)
+  await income.executor.set()
+  
+@dp.message_handler(state=income.executor)
+async def state4(message: types.Message, state: FSMContext):
   answer = message.text  # Сохраняем ответ пользователя
 
-  await state.update_data(currency=answer)
+  await state.update_data(executor=answer)
   data = await state.get_data()
   category = data.get('category')
   count = data.get('count')
   currency = data.get('currency')
-  await message.answer(f'Записали \nВалюта: {currency}. \nСумма: {count} \nКатегория: {category}', reply_markup=kb_menu)
+  executor = data.get('executor')
+  try:
+    db = sqlite3.connect('bot_data.db')
+    c = db.cursor()
+    print("Подключен к SQLite")
+
+    sqlite_insert_with_param = """
+      INSERT INTO income
+      (date, category, sum, currency, executor)
+      VALUES (?, ?, ?, ?, ?);
+    """
+
+    data_tuple = (datetime.now(), category, count, currency, executor)
+    c.execute(sqlite_insert_with_param, data_tuple)
+    db.commit()
+    print("Success")
+    c.close()
+  except sqlite3.Error as error:
+    print("Ошибка при работе с SQLite", error)
+  finally:
+    if db:
+      db.close()
+      print("Соединение с SQLite закрыто")
+  await message.answer(f'Записали \nВалюта: {currency}. \nСумма: {count} \nКатегория: {category} \nПолучатель: {executor}', reply_markup=kb_menu)
 
   await state.finish()

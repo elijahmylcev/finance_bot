@@ -4,3 +4,5 @@ class income(StatesGroup):
   category = State()
   count = State()
   currency = State()
+  executor = State()
+  

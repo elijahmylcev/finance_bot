@@ -4,6 +4,7 @@ from aiogram import executor
 from handlers import dp, check_currency
 from functions.parser_korona import get_k_currency
 from functions.parser_cash import get_cash_currency
+from threading import Thread
 
 import sqlite3
 
@@ -51,37 +52,35 @@ import sqlite3
 
 
 
-# async def infinity() -> None:
-#   while True:
-#     gold_pay = get_k_currency()
-#     print(gold_pay)
-#     cash = get_cash_currency()
-#     print(cash)
+async def infinity() -> None:
+  while True:
+    gold_pay = await get_k_currency()
+    print(gold_pay)
+    cash = await get_cash_currency()
+    print(cash)
     
-#     try:
-#       db = sqlite3.connect('bot_data.db')
-#       c = db.cursor()
-#       print("Подключен к SQLite")
+    try:
+      db = sqlite3.connect('bot_data.db')
+      c = db.cursor()
+      print("Подключен к SQLite")
 
-#       sqlite_insert_with_param = """INSERT INTO currency
-#                             (date, cash_num, gold_num)
-#                             VALUES (?, ?, ?);"""
+      sqlite_insert_with_param = """INSERT INTO currency
+                            (date, cash_num, gold_num)
+                            VALUES (?, ?, ?);"""
 
-#       data_tuple = (datetime.now(), cash, gold_pay)
-#       c.execute(sqlite_insert_with_param, data_tuple)
-#       db.commit()
-#       print("Success")
-#       c.close()
-#       # check_currency()
-#     except sqlite3.Error as error:
-#       print("Ошибка при работе с SQLite", error)
-#     finally:
-#       if db:
-#         db.close()
-#         print("Соединение с SQLite закрыто")
-#     await asyncio.sleep(900)
-  
-
+      data_tuple = (datetime.now(), cash, gold_pay)
+      c.execute(sqlite_insert_with_param, data_tuple)
+      db.commit()
+      print("Success")
+      c.close()
+      # check_currency()
+    except sqlite3.Error as error:
+      print("Ошибка при работе с SQLite", error)
+    finally:
+      if db:
+        db.close()
+        print("Соединение с SQLite закрыто")
+    await asyncio.sleep(900)
 
 async def on_startup(dp) -> None:
   import filters
@@ -91,13 +90,13 @@ async def on_startup(dp) -> None:
   await on_startup_notify(dp)
 
   from utils.set_bot_commands import set_default_commands
-  # loop = asyncio.get_event_loop()
-  # loop.create_task(infinity())
   await set_default_commands(dp)
   
   print('Bot запущен')
   
 
 if __name__ == '__main__':
+  loop = asyncio.get_event_loop()
+  loop.create_task(infinity())
   executor.start_polling(dp, on_startup=on_startup)
   

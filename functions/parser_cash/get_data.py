@@ -1,8 +1,9 @@
 from time import sleep
 from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
+import asyncio
 
-def get_data(page_url, d_path):
+async def get_data(page_url, d_path):
   options = webdriver.ChromeOptions()
   options.add_argument('headless')
   driver = webdriver.Chrome(
@@ -11,7 +12,7 @@ def get_data(page_url, d_path):
     )
   try:
     driver.get(url=page_url)
-    sleep(2)
+    await asyncio.sleep(2)
 
     with open('index.html', 'w', encoding="utf-8") as file:
       file.write(driver.page_source)

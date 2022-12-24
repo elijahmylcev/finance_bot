@@ -3,9 +3,9 @@ from selenium.webdriver.common.by import By
 from .config import executable_path, url
 from .out_float import out_float
 import time
+import asyncio
 
-
-def get_k_currency():
+async def get_k_currency():
   receiving = 10000
 
   options = webdriver.ChromeOptions()
@@ -18,13 +18,13 @@ def get_k_currency():
 
   try:
     driver.get(url=url)
-    time.sleep(2)
+    await asyncio.sleep(2)
     
     select_country = driver.find_element(By.CLASS_NAME, 'select__indicators')
     select_country = select_country.click()
     KAZ = driver.find_element(By.ID, 'changeable-field-select-option-KAZ')
     KAZ.click()
-    time.sleep(2)
+    await asyncio.sleep(2)
     sum = driver.find_element(By.ID, 'changeable-field-input-amount')
     sum.send_keys(receiving)
 
@@ -32,10 +32,10 @@ def get_k_currency():
     select_currency = select_currency[2].click()
     KAZ_currency = driver.find_element(By.ID, 'react-select-4-option-1')
     KAZ_currency.click()
-    time.sleep(2)
+    await asyncio.sleep(2)
     #CheckBox_checkbox-input___BTr3
     driver.find_element(By.CLASS_NAME, 'CheckBox_checkbox-input___BTr3').click()
-    time.sleep(2)
+    await asyncio.sleep(2)
 
     to_pay_in_html = driver.find_element(By.ID, 'static-text-calculatorAmount').text
 

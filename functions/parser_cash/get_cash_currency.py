@@ -4,8 +4,8 @@ from .config import page, driver_path
 from .get_data import get_data
 
 
-def get_cash_currency():
-  get_data(page_url=page, d_path=driver_path)
+async def get_cash_currency():
+  await get_data(page_url=page, d_path=driver_path)
   with open('index.html', 'r', encoding="utf-8") as file:
     src = file.read()
   

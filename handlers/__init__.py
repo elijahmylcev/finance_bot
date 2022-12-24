@@ -1,3 +1,3 @@
-from .users import dp
+from .users import dp, check_currency
 
 __all__ = ['dp']

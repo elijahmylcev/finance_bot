@@ -69,10 +69,12 @@ async def state2(message: types.Message, state: FSMContext):
       [
         KeyboardButton(text=f'₸'),
         KeyboardButton(text=f'₽'),
+      ],
+      [
         KeyboardButton(text=f'$'),
         KeyboardButton(text=f'€'),
         KeyboardButton(text=f'£')
-      ],
+      ]
     ],
     resize_keyboard=True
   )

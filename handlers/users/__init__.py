@@ -8,6 +8,7 @@ from .register import dp
 from .income import dp
 from .costs import dp
 from .currency import dp
+from .check_currency import dp, check_currency
 from .error import dp
 
 __all__ = ['dp']

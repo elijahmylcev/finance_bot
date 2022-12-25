@@ -3,9 +3,9 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 kb_menu = ReplyKeyboardMarkup(
   keyboard=[
     [
-      KeyboardButton(text='Инлайн меню'),
+      KeyboardButton(text='Курс USDT ₮'),
       KeyboardButton(text='Курс ₸'),
-      KeyboardButton(text='Показать дашборд'),
+      KeyboardButton(text='Динамика курса'),
     ],
     [
       KeyboardButton(text='Записать расходы'),

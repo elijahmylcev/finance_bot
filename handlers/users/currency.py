@@ -2,10 +2,12 @@ from loader import dp
 from datetime import datetime, date, time
 from aiogram import types
 from aiogram.utils.markdown import hcode, hbold
+
 import sqlite3
 
 @dp.message_handler(text='Курс ₸')
 async def command_currency(message: types.Message) -> None:
+  
   try:
     db = sqlite3.connect('bot_data.db')
     c = db.cursor()

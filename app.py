@@ -4,7 +4,7 @@ import logging
 
 from datetime import datetime
 from aiogram import executor, Dispatcher
-from handlers import dp, check_currency
+from handlers import dp, check_currency, check_usdt
 from functions.parser_korona import get_k_currency
 from functions.parser_cash import get_cash_currency
 from functions.get_USDT import get_usdt
@@ -92,13 +92,34 @@ async def infinity(dp: Dispatcher) -> None:
       print("Success")
       c.close()
       
-      check = await check_currency()
+      check_tenge = check_currency()
+      check_usdt_obj = check_usdt()
+      if check_tenge['gold'] != None:
+        for admin in admins:
+          try:
+            gold = check_tenge['gold']
+            text = f'<b>Курс на золотой короне вырос: <code>₽ = {gold}₸</code></b>'
+            await dp.bot.send_message(chat_id=admin, text=text)
+          except Exception as err:
+            logging.exception(err)
+            
+      if check_tenge['cash'] != None:
+        for admin in admins:
+          try:
+            cash = check_tenge['cash']
+            text = f'<b>Курс в обменниках вырос: <code>₽ = {cash}₸</code></b>'
+            await dp.bot.send_message(chat_id=admin, text=text)
+          except Exception as err:
+            logging.exception(err)
       
-      for admin in admins:
-        try:
-          await dp.bot.send_message(chat_id=admin, text=check)
-        except Exception as err:
-          logging.exception(err)
+      if check_usdt_obj['usdt'] != None:
+        for admin in admins:
+          try:
+            usdt = check_usdt_obj['usdt']
+            text = f'<b>Курс ₮ упал к ₽: <code>₮ = {usdt}₽</code></b>'
+            await dp.bot.send_message(chat_id=admin, text=text)
+          except Exception as err:
+            logging.exception(err)
     except sqlite3.Error as error:
       print("Ошибка при работе с SQLite", error)
     finally:

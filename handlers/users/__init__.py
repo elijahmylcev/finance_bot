@@ -8,7 +8,8 @@ from .register import dp
 from .income import dp
 from .costs import dp
 from .currency import dp
-from .check_currency import dp, check_currency
+from .check_currency import check_currency
+from .check_usdt import check_usdt
 from .currency_line import dp
 from .get_usdt import dp
 from .error import dp

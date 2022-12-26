@@ -10,6 +10,7 @@ from .costs import dp
 from .currency import dp
 from .check_currency import dp, check_currency
 from .currency_line import dp
+from .get_usdt import dp
 from .error import dp
 
 __all__ = ['dp']

@@ -3,7 +3,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 kb_menu = ReplyKeyboardMarkup(
   keyboard=[
     [
-      KeyboardButton(text='Курс USDT ₮'),
+      KeyboardButton(text='Курс ₮(USDT)'),
       KeyboardButton(text='Курс ₸'),
       KeyboardButton(text='Динамика курса'),
     ],

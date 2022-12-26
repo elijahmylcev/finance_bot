@@ -25,13 +25,13 @@ async def command_currency(message: types.Message):
     fig.add_trace(go.Scatter(
       x=df['date'],
       y=df['gold_num'],
-      mode='lines+markers',
+      mode='lines',
       name='Курс ₸ на золотой короне',
     )) 
     fig.add_trace(go.Scatter(
       x=df['date'],
       y=df['cash_num'],
-      mode='lines+markers',
+      mode='lines',
       name='Среднее в обменниках Алматы',      
     )) 
     
